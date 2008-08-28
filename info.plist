@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>contactEmailRot13</key>
@@ -24,13 +24,24 @@
 			<string>D6F5F368-C476-4882-82EA-D11E22A445BF</string>
 			<string>3E208CDF-268C-4A23-902B-5628596E4BC8</string>
 			<string>------------------------------------</string>
-			<string>1194ED50-336C-45F8-9E73-C777FB3FAF88</string>
-			<string>092CED4D-9C4C-4ED7-BB6A-5C80D929D9FD</string>
-			<string>A1DCDF0B-628B-4590-87C0-A551DC1F5F3A</string>
+			<string>81133C73-CC7A-48EF-AA00-745E0ACF7E6B</string>
 			<string>------------------------------------</string>
+			<string>80BD96D6-C41C-45F3-8CAE-E6D88B9D7339</string>
 		</array>
 		<key>submenus</key>
-		<dict/>
+		<dict>
+			<key>81133C73-CC7A-48EF-AA00-745E0ACF7E6B</key>
+			<dict>
+				<key>items</key>
+				<array>
+					<string>1194ED50-336C-45F8-9E73-C777FB3FAF88</string>
+					<string>092CED4D-9C4C-4ED7-BB6A-5C80D929D9FD</string>
+					<string>A1DCDF0B-628B-4590-87C0-A551DC1F5F3A</string>
+				</array>
+				<key>name</key>
+				<string>Offline</string>
+			</dict>
+		</dict>
 	</dict>
 	<key>name</key>
 	<string>Perforce</string>
