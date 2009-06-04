@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>fileTypes</key>
+	<array>
+		<string>spec</string>
+		<string>client</string>
+	</array>
+	<key>firstLineMatch</key>
+	<string># A Perforce</string>
+	<key>name</key>
+	<string>Perforce Client Specification</string>
+	<key>patterns</key>
+	<array>
+		<dict>
+			<key>match</key>
+			<string>^(Client|Update|Access|Owner|Host|Description|Root|AltRoots|Options|SubmitOptions|LineEnd|View):</string>
+			<key>name</key>
+			<string>keyword.other</string>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.comment</string>
+				</dict>
+			</dict>
+			<key>match</key>
+			<string>(#).*$\n?</string>
+			<key>name</key>
+			<string>comment.line</string>
+		</dict>
+	</array>
+	<key>scopeName</key>
+	<string>source.perforce</string>
+	<key>uuid</key>
+	<string>9C843973-4684-4D1F-AC63-748BE92025A6</string>
+</dict>
+</plist>
