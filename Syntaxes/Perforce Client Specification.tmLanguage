@@ -20,6 +20,24 @@
 			<string>keyword.other</string>
 		</dict>
 		<dict>
+			<key>match</key>
+			<string>\b((submit|revert|leave)unchanged)(\+reopen)?\b</string>
+			<key>name</key>
+			<string>keyword.control.submitoptions</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\b(local|unix||mac|win|share)\b</string>
+			<key>name</key>
+			<string>keyword.control.lineend</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\b(((no)?(allwrite|clobber|compress|modtime|rmdir)|(un)?locked))\b</string>
+			<key>name</key>
+			<string>keyword.control.options</string>
+		</dict>
+		<dict>
 			<key>captures</key>
 			<dict>
 				<key>1</key>
