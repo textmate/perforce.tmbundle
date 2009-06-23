@@ -13,7 +13,7 @@ chmod +r "$TM_FILEPATH"
 /Developer/Tools/SetFile -a l "$TM_FILEPATH"
 
 # now record the file
-mkdir -p "$HOME/P4Cache"
+mkdir -p "$HOME/.P4Cache"
 echo "$TM_FILEPATH" &gt;&gt; "$HOME/P4Cache/OfflineEdits.txt";
 </string>
 	<key>input</key>

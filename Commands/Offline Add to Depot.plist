@@ -9,7 +9,7 @@
 # (presumably when access to Perforce is restored)
 
 # now record the file
-mkdir -p "$HOME/P4Cache"
+mkdir -p "$HOME/.P4Cache"
 echo "$TM_FILEPATH" &gt;&gt; "$HOME/P4Cache/OfflineAdds.txt";
 </string>
 	<key>input</key>

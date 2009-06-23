@@ -8,12 +8,12 @@
 	<string>
 # if we have offline edits, send them now (assumes we're actually online again)
 if [[ -e  "$HOME/P4Cache/OfflineEdits.txt" ]]; then
-	"$TM_P4" -x "$HOME/P4Cache/OfflineEdits.txt" edit &amp;&amp; rm "$HOME/P4Cache/OfflineEdits.txt"
+	"$TM_P4" -x "$HOME/.P4Cache/OfflineEdits.txt" edit &amp;&amp; rm "$HOME/P4Cache/OfflineEdits.txt"
 fi
 
 # if we have offline adds, send them now (assumes we're actually online again)
 if [ -e  "$HOME/P4Cache/OfflineAdds.txt" ]; then
-	"$TM_P4" -x add "$HOME/P4Cache/OfflineAdds.txt" &amp;&amp; rm "$HOME/P4Cache/OfflineAdds.txt"
+	"$TM_P4" -x add "$HOME/.P4Cache/OfflineAdds.txt" &amp;&amp; rm "$HOME/P4Cache/OfflineAdds.txt"
 fi
 </string>
 	<key>input</key>
