@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>result=`"${TM_P4:=p4}" edit "$TM_FILEPATH" 2&gt;&amp;1`
+status=$?
+
+if [[ "$result" =~ "already opened for add" ]]; then
+	echo "Already opened for add."
+	exit $status
+fi
+
+if [[ "$result" =~ "not on client" ]]; then
+    result=`"${TM_P4:=p4}" add "$TM_FILEPATH" 2&gt;&amp;1`
+    status=$?
+fi
+
+echo $result
+exit $status
+</string>
+	<key>input</key>
+	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>^F</string>
+	<key>name</key>
+	<string>Add or Edit</string>
+	<key>output</key>
+	<string>showAsTooltip</string>
+	<key>uuid</key>
+	<string>0D7B4536-7B90-47ED-BB1C-5A24CEEFB078</string>
+</dict>
+</plist>

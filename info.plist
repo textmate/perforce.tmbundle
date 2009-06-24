@@ -12,6 +12,7 @@
 	<dict>
 		<key>items</key>
 		<array>
+			<string>0D7B4536-7B90-47ED-BB1C-5A24CEEFB078</string>
 			<string>AD9B4CB8-7577-11D9-A32D-000A95A89C98</string>
 			<string>9982EC7A-7577-11D9-A32D-000A95A89C98</string>
 			<string>5D487D57-14F6-4E77-BFAE-769CA3DA40EA</string>
@@ -29,6 +30,7 @@
 			<string>------------------------------------</string>
 			<string>D877FFC4-1170-452B-910B-AB4F0EE743C6</string>
 			<string>80BD96D6-C41C-45F3-8CAE-E6D88B9D7339</string>
+			<string>C7F04C53-6B13-47DC-AC09-721D311DFD7D</string>
 		</array>
 		<key>submenus</key>
 		<dict>
@@ -49,6 +51,7 @@
 	<string>Perforce</string>
 	<key>ordering</key>
 	<array>
+		<string>0D7B4536-7B90-47ED-BB1C-5A24CEEFB078</string>
 		<string>AD9B4CB8-7577-11D9-A32D-000A95A89C98</string>
 		<string>D6F5F368-C476-4882-82EA-D11E22A445BF</string>
 		<string>556314B2-B3BF-11D9-9B1F-000A95A89C98</string>
@@ -65,6 +68,7 @@
 		<string>A1DCDF0B-628B-4590-87C0-A551DC1F5F3A</string>
 		<string>80BD96D6-C41C-45F3-8CAE-E6D88B9D7339</string>
 		<string>D877FFC4-1170-452B-910B-AB4F0EE743C6</string>
+		<string>9C843973-4684-4D1F-AC63-748BE92025A6</string>
 	</array>
 	<key>uuid</key>
 	<string>9211D349-7577-11D9-A32D-000A95A89C98</string>
