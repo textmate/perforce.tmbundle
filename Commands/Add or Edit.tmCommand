@@ -5,7 +5,9 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>result=`"${TM_P4:=p4}" edit "$TM_FILEPATH" 2&gt;&amp;1`
+	<string>the_file=`python -c "import sys,os;print os.path.realpath(sys.argv[1])" $TM_FILEPATH`
+
+result=`"${TM_P4:=p4}" edit "$the_file" 2&gt;&amp;1`
 status=$?
 
 if [[ "$result" =~ "already opened for add" ]]; then
@@ -14,7 +16,7 @@ if [[ "$result" =~ "already opened for add" ]]; then
 fi
 
 if [[ "$result" =~ "not on client" ]]; then
-    result=`"${TM_P4:=p4}" add "$TM_FILEPATH" 2&gt;&amp;1`
+    result=`"${TM_P4:=p4}" add "$the_file" 2&gt;&amp;1`
     status=$?
 fi
 

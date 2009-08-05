@@ -5,15 +5,14 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>"${TM_P4:=p4}" revert "$TM_FILEPATH"
+	<string>the_file=`python -c "import sys,os;print os.path.realpath(sys.argv[1])" $TM_FILEPATH`
+"${TM_P4:=p4}" revert "$the_file"
 
 # force TM to refresh the current file..
 rescan_project
 </string>
 	<key>input</key>
 	<string>none</string>
-	<key>keyEquivalent</key>
-	<string>^F</string>
 	<key>name</key>
 	<string>Revert to Latest</string>
 	<key>output</key>

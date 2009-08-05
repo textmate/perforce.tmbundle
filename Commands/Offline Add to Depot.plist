@@ -8,9 +8,11 @@
 	<string># record a file that we're editing offline for later
 # (presumably when access to Perforce is restored)
 
+the_file=`python -c "import sys,os;print os.path.realpath(sys.argv[1])" $TM_FILEPATH`
+
 # now record the file
 mkdir -p "$HOME/.P4Cache"
-echo "$TM_FILEPATH" &gt;&gt; "$HOME/P4Cache/OfflineAdds.txt";
+echo "$the_file" &gt;&gt; "$HOME/P4Cache/OfflineAdds.txt";
 </string>
 	<key>input</key>
 	<string>none</string>
