@@ -1,12 +1,12 @@
 #!/usr/bin/env ruby -w
-
+require 'pathname'
 require ENV['TM_SUPPORT_PATH'] + "/lib/progress"
 
 module Perforce
 
 	def Perforce.diff_active_file( revision, command )
 		p4			= ENV['TM_P4'] || 'p4'
-		target_path	= ENV['TM_FILEPATH']
+		target_path	= Pathname.new(ENV['TM_FILEPATH']).realpath
 
 		output_path	= File.basename(target_path) + ".diff"
 
