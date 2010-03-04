@@ -10,8 +10,10 @@
 </string>
 	<key>input</key>
 	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>^F</string>
 	<key>name</key>
-	<string>Open for Delete</string>
+	<string>Mark for Delete</string>
 	<key>output</key>
 	<string>showAsTooltip</string>
 	<key>uuid</key>

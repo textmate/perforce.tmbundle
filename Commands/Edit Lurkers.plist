@@ -7,7 +7,7 @@
 	<key>command</key>
 	<string>the_project=`python -c "import sys,os;print os.path.realpath(sys.argv[1])" $TM_PROJECT_DIRECTORY`
 cd $the_project
-"${TM_P4:=p4}" diff -se ./... | "${TM_P4:=p4}" -x - edit</string>
+"${TM_P4:=p4}" diff -se $the_project/... | "${TM_P4:=p4}" -x - edit</string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>

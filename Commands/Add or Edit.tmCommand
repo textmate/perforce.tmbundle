@@ -28,7 +28,7 @@ exit $status
 	<key>keyEquivalent</key>
 	<string>^F</string>
 	<key>name</key>
-	<string>Add or Edit</string>
+	<string>Open for Add or Edit</string>
 	<key>output</key>
 	<string>showAsTooltip</string>
 	<key>uuid</key>
