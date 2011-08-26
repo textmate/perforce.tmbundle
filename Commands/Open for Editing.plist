@@ -5,13 +5,17 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>the_file=`python -c "import sys,os;print os.path.realpath(sys.argv[1])" $TM_FILEPATH`
-"${TM_P4:=p4}" edit "$the_file"
+	<string>#!/bin/bash
+
+# eval is needed to parse the 's in $TM_SELECTED_FILES
+eval p4 edit $TM_SELECTED_FILES
 </string>
 	<key>input</key>
 	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>@4</string>
 	<key>name</key>
-	<string>Open for Editing</string>
+	<string>Edit in workspace</string>
 	<key>output</key>
 	<string>showAsTooltip</string>
 	<key>uuid</key>

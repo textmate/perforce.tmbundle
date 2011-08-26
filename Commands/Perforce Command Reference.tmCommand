@@ -8,6 +8,8 @@
 	<string>open "http://perforce.com/perforce/doc.082/manuals/cmdref/index.html"</string>
 	<key>input</key>
 	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>@4</string>
 	<key>name</key>
 	<string>Perforce Command Reference</string>
 	<key>output</key>

@@ -3,32 +3,48 @@
 <plist version="1.0">
 <dict>
 	<key>beforeRunningCommand</key>
-	<string>nop</string>
+	<string>saveActiveFile</string>
 	<key>command</key>
-	<string>the_file=`python -c "import sys,os;print os.path.realpath(sys.argv[1])" $TM_FILEPATH`
+	<string>#!/bin/bash
 
-result=`"${TM_P4:=p4}" edit "$the_file" 2&gt;&amp;1`
-status=$?
+p4_info_key="Client root: "
 
-if [[ "$result" =~ "already opened for add" ]]; then
-	echo "Already opened for add."
+# Get the key: value pair containing the workspace path from
+# p4 
+workspace_path=`p4 info | grep "$p4_info_key"`
+
+# Remove the key
+workspace_path="${workspace_path#$p4_info_key}/"
+
+# If the currently open file contains workspace_path
+if [[ $TM_FILEPATH =~ $workspace_path ]]
+then
+	# P4 add or edit the file
+
+	the_file=`python -c "import sys,os;print os.path.realpath(sys.argv[1])" $TM_FILEPATH`
+
+	result=`"${TM_P4:=p4}" edit "$the_file" 2&gt;&amp;1`
+	status=$?
+
+	if [[ "$result" =~ "already opened for add" ]]; then
+		echo "Already opened for add."
+		exit $status
+	fi
+
+	if [[ "$result" =~ "not on client" ]]; then
+	    result=`"${TM_P4:=p4}" add "$the_file" 2&gt;&amp;1`
+	    status=$?
+	fi
+
+	echo $result
 	exit $status
-fi
-
-if [[ "$result" =~ "not on client" ]]; then
-    result=`"${TM_P4:=p4}" add "$the_file" 2&gt;&amp;1`
-    status=$?
-fi
-
-echo $result
-exit $status
-</string>
+fi</string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>
-	<string>^F</string>
+	<string>@s</string>
 	<key>name</key>
-	<string>Open for Add or Edit</string>
+	<string>Save (add/edit if neccessary)</string>
 	<key>output</key>
 	<string>showAsTooltip</string>
 	<key>uuid</key>

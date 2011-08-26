@@ -5,11 +5,14 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>the_file=`python -c "import sys,os;print os.path.realpath(sys.argv[1])" $TM_FILEPATH`
-"${TM_P4:=p4}" add "$the_file"
-</string>
+	<string>#!/bin/bash
+
+# eval is needed to parse the 's in $TM_SELECTED_FILES
+eval p4 add $TM_SELECTED_FILES</string>
 	<key>input</key>
 	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>@4</string>
 	<key>name</key>
 	<string>Add to Depot</string>
 	<key>output</key>

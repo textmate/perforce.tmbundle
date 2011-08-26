@@ -14,6 +14,7 @@ require 'p4_forms'
 require 'shelltokenize'
 
 p4				= ENV['TM_P4'] || 'p4'
+
 #commit_paths	= ENV['CommitPaths']
 support			= ENV['TM_SUPPORT_PATH']
 commit_tool		= support + "/bin/CommitWindow.app/Contents/MacOS/CommitWindow"
@@ -72,9 +73,9 @@ IO.popen(%Q{"#{p4}" submit -i}, "w+" ) {|p| p.puts commit_form.to_s }
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>
-	<string>^F</string>
+	<string>@4</string>
 	<key>name</key>
-	<string>Submit Changelist…</string>
+	<string>Commit Changelist…</string>
 	<key>output</key>
 	<string>openAsNewDocument</string>
 	<key>uuid</key>
