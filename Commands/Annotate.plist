@@ -6,14 +6,14 @@
 	<string>nop</string>
 	<key>command</key>
 	<string>the_file=`python -c "import sys,os;print os.path.realpath(sys.argv[1])" $TM_FILEPATH`
-"${TM_P4:=p4}" annotate -c -i -q "$the_file"
+"${TM_P4:=p4}" -P $P4PASSWD annotate -c -i -q "$the_file"
 </string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>
-	<string>^F</string>
+	<string>@4</string>
 	<key>name</key>
-	<string>Annotate</string>
+	<string>Blame</string>
 	<key>output</key>
 	<string>openAsNewDocument</string>
 	<key>uuid</key>

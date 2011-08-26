@@ -5,16 +5,16 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>the_file=`python -c "import sys,os;print os.path.realpath(sys.argv[1])" $TM_FILEPATH`
-"${TM_P4:=p4}" revert "$the_file"
+	<string>#!/bin/bash
 
-# force TM to refresh the current file..
-rescan_project
-</string>
+# eval is needed to parse the 's in $TM_SELECTED_FILES
+eval p4 revert $TM_SELECTED_FILES</string>
 	<key>input</key>
 	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>@4</string>
 	<key>name</key>
-	<string>Revert to Latest</string>
+	<string>Revert</string>
 	<key>output</key>
 	<string>showAsTooltip</string>
 	<key>uuid</key>

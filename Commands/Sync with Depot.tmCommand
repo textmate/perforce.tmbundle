@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/bin/bash
+
+p4_info_key="Client root: "
+
+# Get the key: value pair containing the workspace path from
+# p4 
+workspace_path=`p4 info | grep "$p4_info_key"`
+
+# Remove the key
+workspace_path="${workspace_path#$p4_info_key}/"
+
+if [[ $TM_SELECTED_FILE =~ $workspace_path ]]
+then
+	relative_path=${TM_SELECTED_FILE#$workspace_path}
+	if [[ -d $TM_SELECTED_FILE ]]
+	then
+		# p4 requires ... to sync a directory 
+		relative_path="${relative_path}/..."
+	fi
+	
+	# eval not needed because $TM_SELECTED_FILE is unquoted
+	cd $workspace_path
+	p4 sync $relative_path
+fi</string>
+	<key>input</key>
+	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>@4</string>
+	<key>name</key>
+	<string>Sync with Depot</string>
+	<key>output</key>
+	<string>openAsNewDocument</string>
+	<key>uuid</key>
+	<string>48C3E848-57FC-4633-814E-724CE05AC124</string>
+</dict>
+</plist>
