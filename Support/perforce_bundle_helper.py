@@ -1,4 +1,4 @@
-import os, sys, shlex, subprocess
+import os, shlex, subprocess
 from p4python.P4 import P4
 
 p4 = None

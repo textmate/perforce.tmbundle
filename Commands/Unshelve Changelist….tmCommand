@@ -7,9 +7,9 @@
 	<key>command</key>
 	<string>#!/usr/bin/python2.7
 # -*- coding: utf-8 -*-
-import os, shlex, subprocess, sys
 
 def add_tm_support_to_path():
+	import os, sys
 	sys.path.append(os.environ['TM_BUNDLE_SUPPORT'])
 
 add_tm_support_to_path()
