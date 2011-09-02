@@ -1,7 +1,35 @@
-import os, sys, shlex
+import os, sys, shlex, subprocess
 from p4python.P4 import P4
 
-p4 = P4()
+p4 = None
+
+def connect_to_p4():
+	required_environ_keys = ['P4PORT', 'P4USER', 'P4PASSWD', 'P4CLIENT']
+	
+	missing_environ_keys = filter(
+		lambda key: not os.environ.has_key(key),
+		required_environ_keys 
+	)
+	
+	if missing_environ_keys:
+		print("Please make sure that the following environment variables have been set:")
+		
+		for key in missing_environ_keys:
+			print(" - " + key)
+		
+		print('')
+		assert False
+	else:
+		global p4
+		
+		if p4 is None:
+			p4 = P4()
+			
+		if not p4.connected():
+			p4.connect()
+			
+		return p4
+
 
 def get_textmate_file_list():
 	# shlex.split parses the bash argument string into a list
@@ -16,12 +44,12 @@ def get_files_in_p4_workspace(file_list):
 	the P4 current workspace.
 	'''
 	
-	if not p4.connected():
-		p4.connect()
-		
-	p4_info = p4.run('info')[0]
+	connect_to_p4()
 	
-	return [file for file in file_list if file.startswith(p4_info['clientRoot'])]
+	if p4:
+		p4_info = p4.run('info')[0]
+	
+		return [file for file in file_list if file.startswith(p4_info['clientRoot'])]
 
 
 def prepare_file_list_for_p4(file_and_directory_list):
@@ -29,7 +57,7 @@ def prepare_file_list_for_p4(file_and_directory_list):
 	Returns a new list that
 	 - adds /... to the ends of directory paths
 	 - filters out files that are children of a supplied directory
-	'''
+	'''	
 	
 	file_list = []
 	directory_list = []
@@ -55,14 +83,33 @@ def prepare_file_list_for_p4(file_and_directory_list):
 			
 	return result
 	
+
+def prompt_for_input(prompt, title = '', *button_labels):
+	if not button_labels:
+		button_labels = ["Continue", "Cancel"]
+	
+	command = os.environ['TM_SUPPORT_PATH'] + '/bin/CocoaDialog.app/Contents/MacOS/CocoaDialog \
+				inputbox \
+				--informative-text "' + prompt + '" \
+				--title "' + title + '"'
+	
+	for button_label in button_labels:
+		command += ' --button' + str(1 + button_labels.index(button_label)) + ' "' + button_label + '"'
+	
+	return subprocess.check_output(command, shell = True, stdin = subprocess.PIPE)
+	
 	
 def run_p4_command_on_selected_textmate_files(*args, **kwargs):
-	file_list = prepare_file_list_for_p4(
-					get_files_in_p4_workspace(
-						get_textmate_file_list()
+	try:
+		file_list = prepare_file_list_for_p4(
+						get_files_in_p4_workspace(
+							get_textmate_file_list()
+						)
 					)
-				)
-
+					
+	except AssertionError:
+		return ["Your command was not executed because of an error."]
+	
 	if not file_list:
 		return ["These files are not in the P4 workspace."]
 		
@@ -72,10 +119,14 @@ def run_p4_command_on_selected_textmate_files(*args, **kwargs):
 		
 
 def run_p4_command(command, file_list = [], fallback_command = None, fallback_silently = True):
+	try:
+		connect_to_p4()
+					
+	except AssertionError:
+		return ["Your command was not executed because of an error."]
+
+
 	p4_response = []
-	
-	if not p4.connected():
-		p4.connect()
 	
 	# This makes P4's output human-readible instead of dict-y
 	p4.tagged = False
@@ -83,19 +134,27 @@ def run_p4_command(command, file_list = [], fallback_command = None, fallback_si
 	def run_command(command, fallback_command = None):
 		p4_response = []
 
+		'''
+		When you submit or shelve a changeset without a hardcoded
+		description, p4 will give you the opportunity to create one in
+		the app specified by $EDITOR.
+		
+		'mate -w' spawns TextMate and tells it to wait until you close
+		the window to send its contents to stdin.
+		'''
+		if not os.environ.has_key('EDITOR'):
+			os.environ['EDITOR'] = os.environ['TM_SUPPORT_PATH'] + '/bin/mate -w'
+		
+		# If someone passes arguments in along with command, parse them correctly
+		p4_args = shlex.split(command)
+		command = p4_args[0]
+		p4_args = p4_args[1:]
+		
+		if file_list:
+			p4_args.extend(file_list)
+					
 		try:
-			'''
-			When you submit or shelve a changeset without a hardcoded
-			description, p4 will give you the opportunity to create one in
-			the app specified by $EDITOR.
-			
-			'mate -w' spawns TextMate and tells it to wait until you close
-			the window to send its contents to stdin.
-			'''
-			if not os.environ.has_key('EDITOR'):
-				os.environ['EDITOR'] = 'mate -w'
-			
-			p4_response = p4.run(command, file_list)
+			p4_response = p4.run(command, p4_args)
 			p4.disconnect()
 			
 			return p4_response
