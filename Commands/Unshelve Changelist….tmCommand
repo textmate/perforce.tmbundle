@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/python2.7
+# -*- coding: utf-8 -*-
+import os, shlex, subprocess, sys
+
+def add_tm_support_to_path():
+	sys.path.append(os.environ['TM_BUNDLE_SUPPORT'])
+
+add_tm_support_to_path()
+
+
+from perforce_bundle_helper import *
+
+prompt_response = prompt_for_input("Which changelist would you like to unshelve?")
+prompt_response_lines = prompt_response.split('\n')
+
+# If they click Continue
+if int(prompt_response_lines[0]) is 1:
+	changelist_number = prompt_response_lines[1]
+	p4_response = run_p4_command('unshelve -s ' + changelist_number)
+	print(stdout_to_html(p4_response))
+else:
+	print("Command cancelled")</string>
+	<key>input</key>
+	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>@4</string>
+	<key>name</key>
+	<string>Unshelve Changelist…</string>
+	<key>output</key>
+	<string>showAsHTML</string>
+	<key>uuid</key>
+	<string>70C7222E-7803-4C40-9381-25B8F09483A1</string>
+</dict>
+</plist>
