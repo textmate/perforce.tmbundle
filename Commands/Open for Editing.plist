@@ -5,11 +5,18 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>#!/bin/bash
+	<string>#!/usr/bin/python2.7
 
-# eval is needed to parse the 's in $TM_SELECTED_FILES
-eval p4 edit $TM_SELECTED_FILES
-</string>
+def add_tm_support_to_path():
+	import os, sys
+	sys.path.append(os.environ['TM_BUNDLE_SUPPORT'])
+
+add_tm_support_to_path()
+
+from perforce_bundle_helper import *
+
+p4_response = run_p4_command_on_selected_textmate_files('edit')
+print('\n'.join(p4_response))</string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>

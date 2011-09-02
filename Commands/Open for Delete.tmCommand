@@ -7,8 +7,21 @@
 	<key>command</key>
 	<string>#!/bin/bash
 
-# eval is needed to parse the 's in $TM_SELECTED_FILES
-eval p4 delete $TM_SELECTED_FILES
+# Not just a Python script because we use bash at the end to reload the project sidebar
+
+python -c "
+def add_tm_support_to_path():
+	import os, sys
+	sys.path.append(os.environ['TM_BUNDLE_SUPPORT'])
+
+add_tm_support_to_path()
+
+from perforce_bundle_helper import *
+
+p4_response = run_p4_command_on_selected_textmate_files('delete')
+print('\n'.join(p4_response))
+"
+
 
 # force TM to refresh the current file..
 rescan_project
