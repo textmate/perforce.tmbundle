@@ -5,40 +5,19 @@
 	<key>beforeRunningCommand</key>
 	<string>saveActiveFile</string>
 	<key>command</key>
-	<string>#!/bin/bash
+	<string>#!/usr/bin/python2.7
 
-p4_info_key="Client root: "
+def add_tm_support_to_path():
+	import os, sys
+	sys.path.append(os.environ['TM_BUNDLE_SUPPORT'])
 
-# Get the key: value pair containing the workspace path from
-# p4 
-workspace_path=`p4 info | grep "$p4_info_key"`
+add_tm_support_to_path()
 
-# Remove the key
-workspace_path="${workspace_path#$p4_info_key}/"
+from perforce_bundle_helper import *
 
-# If the currently open file contains workspace_path
-if [[ $TM_FILEPATH =~ $workspace_path ]]
-then
-	# P4 add or edit the file
+p4_response = run_p4_command_on_selected_textmate_files('edit', fallback_command = 'add')
 
-	the_file=`python -c "import sys,os;print os.path.realpath(sys.argv[1])" $TM_FILEPATH`
-
-	result=`"${TM_P4:=p4}" edit "$the_file" 2&gt;&amp;1`
-	status=$?
-
-	if [[ "$result" =~ "already opened for add" ]]; then
-		echo "Already opened for add."
-		exit $status
-	fi
-
-	if [[ "$result" =~ "not on client" ]]; then
-	    result=`"${TM_P4:=p4}" add "$the_file" 2&gt;&amp;1`
-	    status=$?
-	fi
-
-	echo $result
-	exit $status
-fi</string>
+print('\n'.join(p4_response))</string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>

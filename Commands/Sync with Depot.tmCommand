@@ -24,7 +24,7 @@ then
 		# p4 requires ... to sync a directory 
 		relative_path="${relative_path}/..."
 	fi
-	
+
 	# eval not needed because $TM_SELECTED_FILE is unquoted
 	cd $workspace_path
 	p4 sync $relative_path
