@@ -5,77 +5,36 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>#!/usr/bin/env ruby -w
+	<string>#!/usr/bin/python2.7
 
-$LOAD_PATH &lt;&lt; ENV['TM_BUNDLE_SUPPORT'] + "/lib"
-$LOAD_PATH &lt;&lt; ENV['TM_SUPPORT_PATH'] + "/lib"
+import os, shlex, subprocess, sys
 
-require 'p4_forms'
-require 'shelltokenize'
+def add_tm_support_to_path():
+	sys.path.append(os.environ['TM_BUNDLE_SUPPORT'])
 
-p4				= ENV['TM_P4'] || 'p4'
-
-#commit_paths	= ENV['CommitPaths']
-support			= ENV['TM_SUPPORT_PATH']
-commit_tool		= support + "/bin/CommitWindow.app/Contents/MacOS/CommitWindow"
-
-ignore_file_pattern = /(\/.*)*(\/\..*|\.(tmproj|o|pyc)|Icon)/
+add_tm_support_to_path()
 
 
-StatusMap = {	'edit' 		=&gt; 'M',
-			'add'		=&gt; 'A',
-			'delete'	=&gt; 'D'}
-	# TODO others probably needed
-		
-output = %x{"#{p4}" change -o}
-puts output
+from p4python.P4 import P4
 
-commit_form = Perforce::Form.new(output)
-#puts commit_form.inspect
+# Make sure that a new TextMate window is spawned to input the commit description into
+os.environ['EDITOR'] = os.environ['TM_SUPPORT_PATH'] + '/bin/mate -w -l 25'
 
-raw_paths = commit_form.paths_from_entry("Files")
-commit_paths = []
-commit_status = []
+p4 = P4()
 
-raw_paths.each do |path|
-	match = /^(.*)\s#\s(\w*)/.match(path)
-	commit_paths.push(match[1])
-	commit_status.push(match[2])
-end
-		
-# map to CVS-like status for CommitWindow display
-commit_status = commit_status.collect{|status| StatusMap[status]}
+if not p4.connected():
+	p4.connect()
 
-commit_paths = commit_paths.collect {|path| path.p4_to_local_path }
-commit_path_text = commit_paths.join_p4_to_local_paths
+# Ensure human-readible output
+p4.tagged = False
 
-#puts commit_path_text
-#puts "--------------"
-
-commit_args = %x{"#{commit_tool}" --status #{commit_status.join(":")} #{commit_path_text}}
-#puts commit_args
-#puts "--------------"
-
-commit_tokens = commit_args.tokenize
-
-#puts commit_tokens.inspect
-
-commit_form.fields['Status'] = 'pending'
-commit_form.fields['Description'] = commit_tokens[1]
-commit_form.fields['Files'] = commit_tokens[2...commit_tokens.size].local_to_p4_paths.inject("") {|out, path| out += "#{path}\n" }
-
-
-puts commit_form.to_s
-
-IO.popen(%Q{"#{p4}" submit -i}, "w+" ) {|p| p.puts commit_form.to_s }
-
-</string>
+print(p4.run('submit'))</string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>
 	<string>@4</string>
 	<key>name</key>
-	<string>Commit Changelist…</string>
+	<string>Submit Changelist…</string>
 	<key>output</key>
 	<string>openAsNewDocument</string>
 	<key>uuid</key>
