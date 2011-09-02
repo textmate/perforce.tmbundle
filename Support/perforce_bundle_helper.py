@@ -74,10 +74,6 @@ def run_p4_command_on_selected_textmate_files(*args, **kwargs):
 def run_p4_command(command, file_list = [], fallback_command = None, fallback_silently = True):
 	p4_response = []
 	
-	#if command is 'sync':
-	#	return file_list
-	
-	
 	if not p4.connected():
 		p4.connect()
 	
