@@ -56,61 +56,83 @@ def prepare_file_list_for_p4(file_and_directory_list):
 	return result
 	
 	
-def run_p4_command_on_selected_textmate_files(command, fallback_command = None, fallback_silently = True):
+def run_p4_command_on_selected_textmate_files(*args, **kwargs):
 	file_list = prepare_file_list_for_p4(
 					get_files_in_p4_workspace(
 						get_textmate_file_list()
 					)
 				)
-				
+
 	if not file_list:
 		return ["These files are not in the P4 workspace."]
 		
 	else:
+		kwargs['file_list'] = file_list
+		return run_p4_command(*args, **kwargs)
+		
+
+def run_p4_command(command, file_list = [], fallback_command = None, fallback_silently = True):
+	p4_response = []
+	
+	#if command is 'sync':
+	#	return file_list
+	
+	
+	if not p4.connected():
+		p4.connect()
+	
+	# This makes P4's output human-readible instead of dict-y
+	p4.tagged = False
+	
+	def run_command(command, fallback_command = None):
 		p4_response = []
-		
-		if not p4.connected():
-			p4.connect()
-		
-		# This makes P4's output human-readible instead of dict-y
-		p4.tagged = False
-		
-		def run_command(command, fallback_command = None):
-			p4_response = []
 
-			try:
-				'''
-				When you submit or shelve a changeset without a hardcoded
-				description, p4 will give you the opportunity to create one in
-				the app specified by $EDITOR.
-				
-				'mate -w' spawns TextMate and tells it to wait until you close
-				the window to send its contents to stdin.
-				'''
-				if not os.environ.has_key('EDITOR'):
-					os.environ['EDITOR'] = 'mate -w'
-				
-				p4_response = p4.run(command, file_list)
-				p4.disconnect()
-				
-				return p4_response
-				
-			# I tried typing this as a P4Exception, but failed miserably
-			except Exception:
-				if fallback_command: 
-					p4_response = run_command(fallback_command)
-
-				if not fallback_silently or (fallback_silently and not fallback_command):
-					if p4.warnings:
-						print('Warnings:')
-						for message in p4.warnings:
-							print(message)
-
-					if p4.errors:
-						print('\nErrors:')
-						for message in p4.errors:
-							print(message)
-				
-				return p4_response
+		try:
+			'''
+			When you submit or shelve a changeset without a hardcoded
+			description, p4 will give you the opportunity to create one in
+			the app specified by $EDITOR.
+			
+			'mate -w' spawns TextMate and tells it to wait until you close
+			the window to send its contents to stdin.
+			'''
+			if not os.environ.has_key('EDITOR'):
+				os.environ['EDITOR'] = 'mate -w'
+			
+			p4_response = p4.run(command, file_list)
+			p4.disconnect()
+			
+			return p4_response
+			
+		except Exception:
+			'''
+			- I tried typing this as a P4Exception, but failed miserably
 		
-		return run_command(command, fallback_command)
+			- Another method to consider would be setting exception_level to 0
+			and printing the warnings straight from p4.warnings instead of
+			catching them as exceptions.
+			'''
+
+			if fallback_command: 
+				p4_response = run_command(fallback_command)
+
+			if not fallback_silently or (fallback_silently and not fallback_command):
+				if p4.warnings:
+					print('<h2>Warnings:</h2>')
+					for message in p4.warnings:
+						print(message)
+
+				if p4.errors:
+					print('<h2>Errors:</h2>')
+					for message in p4.errors:
+						print(message)
+			
+			return p4_response
+	
+	return run_command(command, fallback_command)
+
+
+def stdout_to_html(lines, line_delimiter = '\n'):
+	html = line_delimiter.join(lines)
+	html = html.replace('&', '&amp;').replace('<', '&lt;')
+	return '<pre>' + html + '</pre>'

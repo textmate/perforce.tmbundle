@@ -17,16 +17,10 @@ from perforce_bundle_helper import *
 
 p4_response = run_p4_command_on_selected_textmate_files('annotate')
 
+html_response = stdout_to_html(p4_response, '')
+html_response = html_response.replace('\n//depot/', '\n\n//depot')
 
-for line in p4_response:
-	if line.endswith('\n'):
-		line = line[:-1]
-
-	if line.startswith('//'):
-		line = '\n' + line
-
-	print(line)
-</string>
+print(html_response)</string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>
@@ -34,7 +28,7 @@ for line in p4_response:
 	<key>name</key>
 	<string>Annotate</string>
 	<key>output</key>
-	<string>openAsNewDocument</string>
+	<string>showAsHTML</string>
 	<key>uuid</key>
 	<string>D6F5F368-C476-4882-82EA-D11E22A445BF</string>
 </dict>
