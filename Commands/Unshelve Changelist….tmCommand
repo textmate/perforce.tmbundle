@@ -11,19 +11,18 @@
 def add_tm_support_to_path():
 	import os, sys
 	sys.path.append(os.environ['TM_BUNDLE_SUPPORT'])
+	sys.path.append(os.environ['TM_SUPPORT_PATH'] + '/lib')
 
 add_tm_support_to_path()
 
 
 from perforce_bundle_helper import *
+import dialog
 
-prompt_response = prompt_for_input("Which changelist would you like to unshelve?")
-prompt_response_lines = prompt_response.split('\n')
+prompt_response = dialog.get_string(title = "Unshelve Changelist...", prompt = "Which changelist would you like to unshelve?")
 
-# If they click Continue
-if int(prompt_response_lines[0]) is 1:
-	changelist_number = prompt_response_lines[1]
-	p4_response = run_p4_command('unshelve -s ' + changelist_number)
+if prompt_response:
+	p4_response = run_p4_command('unshelve -s ' + prompt_response)
 	print(stdout_to_html(p4_response))
 else:
 	print("Command cancelled")</string>
