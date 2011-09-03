@@ -14,7 +14,7 @@ def add_tm_support_to_path():
 add_tm_support_to_path()
 
 
-from p4python.P4 import P4
+from P4 import P4
 from perforce_bundle_helper import *
 
 # Make sure that a new TextMate window is spawned to input the commit description into with the cursor on the right line

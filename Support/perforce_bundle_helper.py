@@ -1,5 +1,5 @@
 import os, shlex, subprocess
-from p4python.P4 import P4
+from P4 import P4
 
 p4 = None
 
@@ -33,9 +33,9 @@ def connect_to_p4():
 
 def get_textmate_file_list():
 	# shlex.split parses the bash argument string into a list
-	return shlex.split(os.environ['TM_SELECTED_FILES']) \
-		if os.environ.has_key('TM_SELECTED_FILES') \
-		else [os.environ['TM_FILEPATH']]
+	return shlex.split(os.environ['TM_SELECTED_FILES']) if os.environ.has_key('TM_SELECTED_FILES') \
+		else [os.environ['TM_FILEPATH']] if os.environ.has_key('TM_FILEPATH') \
+		else []
 
 
 def get_files_in_p4_workspace(file_list):
