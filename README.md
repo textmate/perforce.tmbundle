@@ -10,4 +10,4 @@ Don't worry!  Ignore the flashing blue warning and click Overwrite.  As soon as 
 Licensing:
 ----------
 
- - The Perforce bundle for TextMate was created by Brenton Simpson <perforce-bundle@appsforartists.com> and is licensed under the GPL v2.  It includes the p4python library, supplied by Perforce under the terms of the Apache license.  It also includes portions of an earlier Perforce bundle by Adam Vandenberg and Daniel Stockman, used with permission.
+ - The Perforce bundle for TextMate was created by Brenton Simpson <perforce-bundle@appsforartists.com> and is licensed under the GPL v2.  It includes the p4python library, supplied by Perforce under the terms of the Apache license.  It also includes portions of an earlier Perforce bundle by Adam Vandenberg et. al., used with permission.
