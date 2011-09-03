@@ -52,10 +52,8 @@
 			<string>comment.line</string>
 		</dict>
 		<dict>
-			<key>begin</key>
-			<string>&lt;</string>
-			<key>end</key>
-			<string>&gt;</string>
+			<key>match</key>
+			<string>&lt;enter description here&gt;</string>
 			<key>name</key>
 			<string>invalid.illegal</string>
 		</dict>
