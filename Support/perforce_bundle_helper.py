@@ -84,21 +84,6 @@ def prepare_file_list_for_p4(file_and_directory_list):
 	return result
 	
 
-def prompt_for_input(prompt, title = '', *button_labels):
-	if not button_labels:
-		button_labels = ["Continue", "Cancel"]
-	
-	command = os.environ['TM_SUPPORT_PATH'] + '/bin/CocoaDialog.app/Contents/MacOS/CocoaDialog \
-				inputbox \
-				--informative-text "' + prompt + '" \
-				--title "' + title + '"'
-	
-	for button_label in button_labels:
-		command += ' --button' + str(1 + button_labels.index(button_label)) + ' "' + button_label + '"'
-	
-	return subprocess.check_output(command, shell = True, stdin = subprocess.PIPE)
-	
-	
 def run_p4_command_on_selected_textmate_files(*args, **kwargs):
 	try:
 		file_list = prepare_file_list_for_p4(
