@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/python2.7
+# -*- coding: utf-8 -*-
+
+def add_tm_support_to_path():
+	import os, sys
+	sys.path.append(os.environ['TM_BUNDLE_SUPPORT'])
+	sys.path.append(os.environ['TM_SUPPORT_PATH'] + '/lib')
+
+add_tm_support_to_path()
+
+
+from perforce_bundle_helper import *
+import dialog, tm_helpers
+
+
+''' 
+Most commands work on all of TM_SELECTED_FILES.  Here, we are explicitly only
+interested in the first one.
+''' 
+source_path = os.environ['TM_SELECTED_FILE'] if os.environ.has_key('TM_SELECTED_FILE') \
+	else os.environ['TM_FILEPATH'] if os.environ.has_key('TM_FILEPATH') \
+	else ''
+relative_source_path_in_list = get_files_relative_to_p4_workspace([source_path]) if source_path else ''
+relative_source_path = relative_source_path_in_list[0] if relative_source_path_in_list else ''
+
+if relative_source_path:
+	default_path = relative_source_path + ' copy'
+	
+	if os.path.isdir(source_path):
+		source_path += '/...'
+		default_path += '/...'
+
+	destination_path = dialog.get_string(
+		title = "Copy Files With P4 Integrate...", 
+		prompt = "Please enter a destination relative to your workspace.",
+		string = default_path
+	)
+
+	if destination_path:
+		p4_response = run_p4_command('integrate', [source_path, destination_path])
+		print(stdout_to_html(p4_response))
+		tm_helpers.rescan_project()
+	else:
+		print("You did not supply a destination.  Command cancelled.")
+else:
+	print("This file is not in your P4 workspace.")</string>
+	<key>input</key>
+	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>@4</string>
+	<key>name</key>
+	<string>Integrate (Copy)…</string>
+	<key>output</key>
+	<string>showAsHTML</string>
+	<key>uuid</key>
+	<string>97411675-97FD-46EF-898A-73AEDA91DEED</string>
+</dict>
+</plist>

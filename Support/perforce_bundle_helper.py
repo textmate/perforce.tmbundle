@@ -38,18 +38,21 @@ def get_textmate_file_list():
 		else []
 
 
-def get_files_in_p4_workspace(file_list):
+def get_files_relative_to_p4_workspace(file_list):
 	'''
 	Returns a new list that only contains files from file_list that are inside
-	the P4 current workspace.
+	the P4 current workspace, with paths relative to it.
 	'''
 	
 	connect_to_p4()
 	
 	if p4:
 		p4_info = p4.run('info')[0]
-	
-		return [file for file in file_list if file.startswith(p4_info['clientRoot'])]
+		p4_workspace = p4_info['clientRoot'] + '/'
+		
+		p4.cwd = p4_workspace
+		
+		return [file.replace(p4_workspace, '') for file in file_list if file.startswith(p4_workspace)]
 
 
 def prepare_file_list_for_p4(file_and_directory_list):
@@ -86,8 +89,8 @@ def prepare_file_list_for_p4(file_and_directory_list):
 
 def run_p4_command_on_selected_textmate_files(*args, **kwargs):
 	try:
-		file_list = prepare_file_list_for_p4(
-						get_files_in_p4_workspace(
+		file_list = get_files_relative_to_p4_workspace(
+						prepare_file_list_for_p4(
 							get_textmate_file_list()
 						)
 					)
@@ -96,7 +99,7 @@ def run_p4_command_on_selected_textmate_files(*args, **kwargs):
 		return ["Your command was not executed because of an error."]
 	
 	if not file_list:
-		return ["These files are not in the P4 workspace."]
+		return ["These files are not in your P4 workspace."]
 		
 	else:
 		kwargs['file_list'] = file_list
@@ -109,7 +112,6 @@ def run_p4_command(command, file_list = [], fallback_command = None, fallback_si
 					
 	except AssertionError:
 		return ["Your command was not executed because of an error."]
-
 
 	p4_response = []
 	

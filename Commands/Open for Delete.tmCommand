@@ -5,26 +5,22 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>#!/bin/bash
+	<string>#!/usr/bin/python2.7
 
-# Not just a Python script because we use bash at the end to reload the project sidebar
-
-python -c "
 def add_tm_support_to_path():
 	import os, sys
 	sys.path.append(os.environ['TM_BUNDLE_SUPPORT'])
+	sys.path.append(os.environ['TM_SUPPORT_PATH'] + '/lib')
 
 add_tm_support_to_path()
 
 from perforce_bundle_helper import *
+import tm_helpers
 
 p4_response = run_p4_command_on_selected_textmate_files('delete')
 print('\n'.join(p4_response))
-"
 
-
-# force TM to refresh the current file..
-rescan_project
+tm_helpers.rescan_project()
 </string>
 	<key>input</key>
 	<string>none</string>
