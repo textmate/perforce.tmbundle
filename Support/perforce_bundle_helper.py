@@ -51,46 +51,42 @@ def get_files_relative_to_p4_workspace(file_list):
 		p4_workspace = p4_info['clientRoot'] + '/'
 		
 		p4.cwd = p4_workspace
+		os.chdir(p4_workspace)
 		
 		return [file.replace(p4_workspace, '') for file in file_list if file.startswith(p4_workspace)]
 
 
-def prepare_file_list_for_p4(file_and_directory_list):
-	'''
-	Returns a new list that
-	 - adds /... to the ends of directory paths
-	 - filters out files that are children of a supplied directory
-	'''	
-	
-	file_list = []
-	directory_list = []
-	
-	for file_or_directory in file_and_directory_list:
-		if os.path.isdir(file_or_directory):
-			directory_list.append(file_or_directory)
-		else:
-			file_list.append(file_or_directory)
-			
-	result = [directory + '/...' for directory in directory_list]
+def get_all_files_in_file_list(file_list):
+	result = []
 	
 	for file in file_list:
-		file_in_directory = False
-		
-		for directory in directory_list:
-			if file.startswith(directory):
-				file_in_directory = True
-				break
-				
-		if not file_in_directory:
+		if os.path.isdir(file):
+			result.extend(get_files_under_directory(file))
+		else:
 			result.append(file)
 			
-	return result
+	# set returns an iterable that ensures all its keys are unique
+	return set(result)
+
+
+def get_files_under_directory(root_path):
+	files = []
+
+	for walk_result_tuple in os.walk(root_path):
+		directory_path = walk_result_tuple[0]
+		child_file_list = walk_result_tuple[2]
+		
+		for file_name in child_file_list:
+			if not file_name.startswith('.'):
+				files.append(os.path.join(directory_path, file_name))
 	
+	return files
+
 
 def run_p4_command_on_selected_textmate_files(*args, **kwargs):
 	try:
-		file_list = get_files_relative_to_p4_workspace(
-						prepare_file_list_for_p4(
+		file_list = get_all_files_in_file_list(
+						get_files_relative_to_p4_workspace(
 							get_textmate_file_list()
 						)
 					)
