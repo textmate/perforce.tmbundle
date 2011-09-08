@@ -1,4 +1,4 @@
-import os, shlex, subprocess
+import os, shlex
 from P4 import P4
 
 p4 = None
