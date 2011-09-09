@@ -56,6 +56,38 @@ def get_files_relative_to_p4_workspace(file_list):
 		return [file.replace(p4_workspace, '') for file in file_list if file.startswith(p4_workspace)]
 
 
+def prepare_file_list_for_p4(file_and_directory_list):
+	'''
+	Returns a new list that
+	 - adds /... to the ends of directory paths
+	 - filters out files that are children of a supplied directory
+	'''	
+
+	file_list = []
+	directory_list = []
+
+	for file_or_directory in file_and_directory_list:
+		if os.path.isdir(file_or_directory):
+			directory_list.append(file_or_directory)
+		else:
+			file_list.append(file_or_directory)
+
+	result = [directory + '/...' for directory in directory_list]
+
+	for file in file_list:
+		file_in_directory = False
+
+		for directory in directory_list:
+			if file.startswith(directory):
+				file_in_directory = True
+				break
+
+		if not file_in_directory:
+			result.append(file)
+
+	return result
+
+
 def get_all_files_in_file_list(file_list):
 	result = []
 	
@@ -84,12 +116,25 @@ def get_files_under_directory(root_path):
 
 
 def run_p4_command_on_selected_textmate_files(*args, **kwargs):
+	# This method should have the same signature as run_p4_command, but the
+	# only way I could get the passthrough to work was with *args and **kwargs.
+	#
+	# If I wasn't in a rush, I'd figure out the right way to pass through named
+	# parameters.  In the mean time, I'll just name them here:
+	command = args[0]
+
+
+	traverse_directories_by_hand_for_these_commands = ['add']
+	
 	try:
-		file_list = get_all_files_in_file_list(
-						get_files_relative_to_p4_workspace(
-							get_textmate_file_list()
-						)
+		file_list = get_files_relative_to_p4_workspace(
+						get_textmate_file_list()
 					)
+					
+		if command in traverse_directories_by_hand_for_these_commands:
+			file_list = get_all_files_in_file_list(file_list)
+		else:
+			file_list = prepare_file_list_for_p4(file_list)
 					
 	except AssertionError:
 		return ["Your command was not executed because of an error."]
