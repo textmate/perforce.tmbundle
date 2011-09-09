@@ -1,5 +1,5 @@
 import os, shlex
-from P4 import P4
+from P4 import P4, P4Exception
 
 p4 = None
 
@@ -26,8 +26,11 @@ def connect_to_p4():
 			p4 = P4()
 			
 		if not p4.connected():
-			p4.connect()
-			
+			try:
+				p4.connect()
+			except P4Exception as p4_error:
+				print(p4_error)
+				
 		return p4
 
 
@@ -46,7 +49,7 @@ def get_files_relative_to_p4_workspace(file_list):
 	
 	connect_to_p4()
 	
-	if p4:
+	if p4 and p4.connected():
 		p4_info = p4.run('info')[0]
 		p4_workspace = p4_info['clientRoot'] + '/'
 		
@@ -54,7 +57,7 @@ def get_files_relative_to_p4_workspace(file_list):
 		os.chdir(p4_workspace)
 		
 		return [file.replace(p4_workspace, '') for file in file_list if file.startswith(p4_workspace)]
-
+		
 
 def prepare_file_list_for_p4(file_and_directory_list):
 	'''
@@ -130,12 +133,15 @@ def run_p4_command_on_selected_textmate_files(*args, **kwargs):
 		file_list = get_files_relative_to_p4_workspace(
 						get_textmate_file_list()
 					)
+		
+		# if get_files_relative_to_p4_workspace returns None, we're not probably connected to P4
+		assert file_list is not None
 					
 		if command in traverse_directories_by_hand_for_these_commands:
 			file_list = get_all_files_in_file_list(file_list)
 		else:
 			file_list = prepare_file_list_for_p4(file_list)
-					
+		
 	except AssertionError:
 		return ["Your command was not executed because of an error."]
 	
@@ -187,19 +193,11 @@ def run_p4_command(command, file_list = [], fallback_command = None, fallback_si
 			
 			return p4_response
 			
-		except Exception:
-			'''
-			- I tried typing this as a P4Exception, but failed miserably
-		
-			- Another method to consider would be setting exception_level to 0
-			and printing the warnings straight from p4.warnings instead of
-			catching them as exceptions.
-			'''
-
+		except P4Exception:
 			if fallback_command: 
 				p4_response = run_command(fallback_command)
-
-			if not fallback_silently or (fallback_silently and not fallback_command):
+			
+			elif not fallback_silently or (fallback_silently and not fallback_command):
 				if p4.warnings:
 					print('<h2>Warnings:</h2>')
 					for message in p4.warnings:
