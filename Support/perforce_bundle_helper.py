@@ -1,4 +1,4 @@
-import os, shlex
+import os, shlex, subprocess
 from P4 import P4, P4Exception
 
 p4 = None
@@ -217,3 +217,13 @@ def stdout_to_html(lines, line_delimiter = '\n'):
 	html = line_delimiter.join(lines)
 	html = html.replace('&', '&amp;').replace('<', '&lt;')
 	return '<pre>' + html + '</pre>'
+	
+	
+	
+# force TM to refresh current file and project drawer
+def rescan_project():
+	subprocess.check_output('''osascript &>/dev/null \
+		-e 'tell app "SystemUIServer" to activate' \
+		-e 'tell app "TextMate" to activate' &''',
+		shell = True
+	)

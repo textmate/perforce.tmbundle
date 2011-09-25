@@ -15,11 +15,10 @@ def add_tm_support_to_path():
 add_tm_support_to_path()
 
 from perforce_bundle_helper import *
-import tm_helpers
 
 p4_response = run_p4_command_on_selected_textmate_files('revert')
 print('\n'.join(p4_response))
-tm_helpers.rescan_project()
+rescan_project()
 </string>
 	<key>input</key>
 	<string>none</string>

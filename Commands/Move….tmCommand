@@ -17,7 +17,7 @@ add_tm_support_to_path()
 
 
 from perforce_bundle_helper import *
-import dialog, tm_helpers
+import dialog
 
 
 ''' 
@@ -47,7 +47,7 @@ if relative_source_path:
 		run_p4_command_on_selected_textmate_files('edit')
 		p4_response = run_p4_command('move', [source_path, destination_path])
 		print(stdout_to_html(p4_response))
-		tm_helpers.rescan_project()
+		rescan_project()
 	else:
 		print("You did not supply a destination.  Command cancelled.")
 else:
