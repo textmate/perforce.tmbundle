@@ -15,7 +15,7 @@ add_tm_support_to_path()
 
 from perforce_bundle_helper import *
 
-p4_response = run_p4_command_on_selected_textmate_files('edit', fallback_command = 'add')
+p4_response = run_p4_command('edit', fallback_command = 'add', file_list = [os.environ['TM_FILEPATH']])
 
 print('\n'.join(p4_response))</string>
 	<key>input</key>
