@@ -20,13 +20,19 @@ p4_response = run_p4_command('edit', fallback_command = 'add', file_list = [os.e
 print('\n'.join(p4_response))</string>
 	<key>input</key>
 	<string>none</string>
-	<key>keyEquivalent</key>
-	<string>@s</string>
+	<key>inputFormat</key>
+	<string>text</string>
 	<key>name</key>
 	<string>Save (add/edit if neccessary)</string>
-	<key>output</key>
-	<string>showAsTooltip</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>text</string>
+	<key>outputLocation</key>
+	<string>toolTip</string>
 	<key>uuid</key>
 	<string>0D7B4536-7B90-47ED-BB1C-5A24CEEFB078</string>
+	<key>version</key>
+	<integer>2</integer>
 </dict>
 </plist>
