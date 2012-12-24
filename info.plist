@@ -33,6 +33,7 @@
 			<string>38C6DE3A-7664-11D9-B58C-000A95A89C98</string>
 			<string>556314B2-B3BF-11D9-9B1F-000A95A89C98</string>
 			<string>97E895A4-B5B9-11D9-80D4-000A95A89C98</string>
+			<string>C7F04C53-6B13-47DC-AC09-721D311DFD7D</string>
 			<string>------------------------------------</string>
 			<string>3E208CDF-268C-4A23-902B-5628596E4BC8</string>
 			<string>------------------------------------</string>
@@ -40,8 +41,6 @@
 			<string>------------------------------------</string>
 			<string>D877FFC4-1170-452B-910B-AB4F0EE743C6</string>
 			<string>80BD96D6-C41C-45F3-8CAE-E6D88B9D7339</string>
-			<string>C7F04C53-6B13-47DC-AC09-721D311DFD7D</string>
-			<string>------------------------------------</string>
 		</array>
 		<key>submenus</key>
 		<dict>
@@ -60,32 +59,6 @@
 	</dict>
 	<key>name</key>
 	<string>Perforce</string>
-	<key>ordering</key>
-	<array>
-		<string>BE2B6161-2E23-4C08-B438-409BB1E82DA8</string>
-		<string>48C3E848-57FC-4633-814E-724CE05AC124</string>
-		<string>782E7E72-ACC3-40B3-AC04-389EFF9AA5B3</string>
-		<string>70C7222E-7803-4C40-9381-25B8F09483A1</string>
-		<string>5D487D57-14F6-4E77-BFAE-769CA3DA40EA</string>
-		<string>E73FA01C-7625-11D9-B58C-000A95A89C98</string>
-		<string>AD9B4CB8-7577-11D9-A32D-000A95A89C98</string>
-		<string>9982EC7A-7577-11D9-A32D-000A95A89C98</string>
-		<string>97411675-97FD-46EF-898A-73AEDA91DEED</string>
-		<string>8B71655C-276C-4379-9FF4-2BCEA4D35C5D</string>
-		<string>0D7B4536-7B90-47ED-BB1C-5A24CEEFB078</string>
-		<string>D6F5F368-C476-4882-82EA-D11E22A445BF</string>
-		<string>D877FFC4-1170-452B-910B-AB4F0EE743C6</string>
-		<string>556314B2-B3BF-11D9-9B1F-000A95A89C98</string>
-		<string>38C6DE3A-7664-11D9-B58C-000A95A89C98</string>
-		<string>C7F04C53-6B13-47DC-AC09-721D311DFD7D</string>
-		<string>97E895A4-B5B9-11D9-80D4-000A95A89C98</string>
-		<string>3E208CDF-268C-4A23-902B-5628596E4BC8</string>
-		<string>1194ED50-336C-45F8-9E73-C777FB3FAF88</string>
-		<string>092CED4D-9C4C-4ED7-BB6A-5C80D929D9FD</string>
-		<string>A1DCDF0B-628B-4590-87C0-A551DC1F5F3A</string>
-		<string>80BD96D6-C41C-45F3-8CAE-E6D88B9D7339</string>
-		<string>9C843973-4684-4D1F-AC63-748BE92025A6</string>
-	</array>
 	<key>require</key>
 	<array>
 		<dict>
