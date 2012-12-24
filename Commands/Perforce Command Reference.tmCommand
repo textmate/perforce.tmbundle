@@ -8,7 +8,7 @@
 	<string>#!/usr/bin/env bash
 [[ -f "${TM_SUPPORT_PATH}/lib/bash_init.sh" ]] &amp;&amp; . "${TM_SUPPORT_PATH}/lib/bash_init.sh"
 
-open "http://perforce.com/perforce/doc.082/manuals/cmdref/index.html"</string>
+open "http://perforce.com/perforce/doc.current/manuals/cmdref/index.html"</string>
 	<key>input</key>
 	<string>none</string>
 	<key>inputFormat</key>
