@@ -5,7 +5,10 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string># record a file that we're editing offline for later
+	<string>#!/usr/bin/env bash
+[[ -f "${TM_SUPPORT_PATH}/lib/bash_init.sh" ]] &amp;&amp; . "${TM_SUPPORT_PATH}/lib/bash_init.sh"
+
+# record a file that we're editing offline for later
 # (presumably when access to Perforce is restored)
 
 the_file=`python -c "import sys,os;print os.path.realpath(sys.argv[1])" $TM_FILEPATH`
@@ -16,13 +19,23 @@ echo "$the_file" &gt;&gt; "$HOME/P4Cache/OfflineAdds.txt";
 </string>
 	<key>input</key>
 	<string>none</string>
+	<key>inputFormat</key>
+	<string>text</string>
 	<key>keyEquivalent</key>
 	<string>^F</string>
 	<key>name</key>
 	<string>Offline Add to Depot</string>
-	<key>output</key>
-	<string>showAsTooltip</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>text</string>
+	<key>outputLocation</key>
+	<string>toolTip</string>
+	<key>scope</key>
+	<string>attr.scm.p4</string>
 	<key>uuid</key>
 	<string>1194ED50-336C-45F8-9E73-C777FB3FAF88</string>
+	<key>version</key>
+	<integer>2</integer>
 </dict>
 </plist>

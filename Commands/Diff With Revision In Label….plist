@@ -5,7 +5,10 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>labels=`"${TM_P4:=p4}" labels "$TM_FILEPATH" | cut -d " " -f 2`
+	<string>#!/usr/bin/env bash
+[[ -f "${TM_SUPPORT_PATH}/lib/bash_init.sh" ]] &amp;&amp; . "${TM_SUPPORT_PATH}/lib/bash_init.sh"
+
+labels=`"${TM_P4:=p4}" labels "$TM_FILEPATH" | cut -d " " -f 2`
 
 revs=`osascript&lt;&lt;END
 	set AppleScript's text item delimiters to {"\n","\r"}
@@ -36,13 +39,23 @@ END
 </string>
 	<key>input</key>
 	<string>none</string>
+	<key>inputFormat</key>
+	<string>text</string>
 	<key>keyEquivalent</key>
 	<string>^F</string>
 	<key>name</key>
 	<string>Diff With Revision In Label…</string>
-	<key>output</key>
-	<string>openAsNewDocument</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>text</string>
+	<key>outputLocation</key>
+	<string>newWindow</string>
+	<key>scope</key>
+	<string>attr.scm.p4</string>
 	<key>uuid</key>
 	<string>97E895A4-B5B9-11D9-80D4-000A95A89C98</string>
+	<key>version</key>
+	<integer>2</integer>
 </dict>
 </plist>

@@ -22,6 +22,8 @@ print('\n'.join(p4_response))</string>
 	<string>none</string>
 	<key>inputFormat</key>
 	<string>text</string>
+	<key>keyEquivalent</key>
+	<string>@s</string>
 	<key>name</key>
 	<string>Save (add/edit if neccessary)</string>
 	<key>outputCaret</key>
@@ -30,6 +32,10 @@ print('\n'.join(p4_response))</string>
 	<string>text</string>
 	<key>outputLocation</key>
 	<string>toolTip</string>
+	<key>scope</key>
+	<string>attr.scm.p4</string>
+	<key>semanticClass</key>
+	<string>action.scm.save</string>
 	<key>uuid</key>
 	<string>0D7B4536-7B90-47ED-BB1C-5A24CEEFB078</string>
 	<key>version</key>

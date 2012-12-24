@@ -54,13 +54,23 @@ else:
 	print("This file is not in your P4 workspace.")</string>
 	<key>input</key>
 	<string>none</string>
-	<key>keyEquivalent</key>
-	<string>@4</string>
+	<key>inputFormat</key>
+	<string>text</string>
 	<key>name</key>
 	<string>Move…</string>
-	<key>output</key>
-	<string>showAsHTML</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>html</string>
+	<key>outputLocation</key>
+	<string>newWindow</string>
+	<key>scope</key>
+	<string>attr.scm.p4</string>
+	<key>semanticClass</key>
+	<string>action.scm.move</string>
 	<key>uuid</key>
 	<string>8B71655C-276C-4379-9FF4-2BCEA4D35C5D</string>
+	<key>version</key>
+	<integer>2</integer>
 </dict>
 </plist>

@@ -19,13 +19,23 @@ p4_response = run_p4_command_on_selected_textmate_files('add')
 print('\n'.join(p4_response))</string>
 	<key>input</key>
 	<string>none</string>
-	<key>keyEquivalent</key>
-	<string>@4</string>
+	<key>inputFormat</key>
+	<string>text</string>
 	<key>name</key>
 	<string>Add to Depot</string>
-	<key>output</key>
-	<string>showAsTooltip</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>text</string>
+	<key>outputLocation</key>
+	<string>toolTip</string>
+	<key>scope</key>
+	<string>attr.scm.p4</string>
+	<key>semanticClass</key>
+	<string>action.scm.add</string>
 	<key>uuid</key>
 	<string>AD9B4CB8-7577-11D9-A32D-000A95A89C98</string>
+	<key>version</key>
+	<integer>2</integer>
 </dict>
 </plist>

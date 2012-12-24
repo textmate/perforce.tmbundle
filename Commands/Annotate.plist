@@ -23,13 +23,23 @@ html_response = html_response.replace('\n//depot/', '\n\n//depot')
 print(html_response)</string>
 	<key>input</key>
 	<string>none</string>
-	<key>keyEquivalent</key>
-	<string>@4</string>
+	<key>inputFormat</key>
+	<string>text</string>
 	<key>name</key>
 	<string>Annotate</string>
-	<key>output</key>
-	<string>showAsHTML</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>html</string>
+	<key>outputLocation</key>
+	<string>newWindow</string>
+	<key>scope</key>
+	<string>attr.scm.p4</string>
+	<key>semanticClass</key>
+	<string>action.scm.misc</string>
 	<key>uuid</key>
 	<string>D6F5F368-C476-4882-82EA-D11E22A445BF</string>
+	<key>version</key>
+	<integer>2</integer>
 </dict>
 </plist>

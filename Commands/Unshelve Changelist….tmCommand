@@ -28,13 +28,23 @@ else:
 	print("Command cancelled")</string>
 	<key>input</key>
 	<string>none</string>
-	<key>keyEquivalent</key>
-	<string>@4</string>
+	<key>inputFormat</key>
+	<string>text</string>
 	<key>name</key>
 	<string>Unshelve Changelist…</string>
-	<key>output</key>
-	<string>showAsHTML</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>html</string>
+	<key>outputLocation</key>
+	<string>newWindow</string>
+	<key>scope</key>
+	<string>attr.scm.p4</string>
+	<key>semanticClass</key>
+	<string>action.scm.misc</string>
 	<key>uuid</key>
 	<string>70C7222E-7803-4C40-9381-25B8F09483A1</string>
+	<key>version</key>
+	<integer>2</integer>
 </dict>
 </plist>

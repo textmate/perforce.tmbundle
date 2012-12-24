@@ -5,18 +5,31 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>"${TM_P4:=p4}"  "$TM_FILEPATH"
+	<string>#!/usr/bin/env bash
+[[ -f "${TM_SUPPORT_PATH}/lib/bash_init.sh" ]] &amp;&amp; . "${TM_SUPPORT_PATH}/lib/bash_init.sh"
+
+"${TM_P4:=p4}"  "$TM_FILEPATH"
 /Applications/p4merge.app/Contents/Resources/launchp4merge "$TM_FILEPATH"
 </string>
 	<key>input</key>
 	<string>none</string>
+	<key>inputFormat</key>
+	<string>text</string>
 	<key>keyEquivalent</key>
 	<string>^F</string>
 	<key>name</key>
 	<string>Diff With Base (p4merge)</string>
-	<key>output</key>
-	<string>openAsNewDocument</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>text</string>
+	<key>outputLocation</key>
+	<string>newWindow</string>
+	<key>scope</key>
+	<string>attr.scm.p4</string>
 	<key>uuid</key>
 	<string>C7F04C53-6B13-47DC-AC09-721D311DFD7D</string>
+	<key>version</key>
+	<integer>2</integer>
 </dict>
 </plist>

@@ -5,7 +5,10 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>
+	<string>#!/usr/bin/env bash
+[[ -f "${TM_SUPPORT_PATH}/lib/bash_init.sh" ]] &amp;&amp; . "${TM_SUPPORT_PATH}/lib/bash_init.sh"
+
+
 # if we have offline edits, send them now (assumes we're actually online again)
 if [[ -e  "$HOME/P4Cache/OfflineEdits.txt" ]]; then
 	"$TM_P4" -x "$HOME/.P4Cache/OfflineEdits.txt" edit &amp;&amp; rm "$HOME/P4Cache/OfflineEdits.txt"
@@ -18,13 +21,23 @@ fi
 </string>
 	<key>input</key>
 	<string>none</string>
+	<key>inputFormat</key>
+	<string>text</string>
 	<key>keyEquivalent</key>
 	<string>^F</string>
 	<key>name</key>
 	<string>Offline Send Offline Edits</string>
-	<key>output</key>
-	<string>showAsTooltip</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>text</string>
+	<key>outputLocation</key>
+	<string>toolTip</string>
+	<key>scope</key>
+	<string>attr.scm.p4</string>
 	<key>uuid</key>
 	<string>A1DCDF0B-628B-4590-87C0-A551DC1F5F3A</string>
+	<key>version</key>
+	<integer>2</integer>
 </dict>
 </plist>

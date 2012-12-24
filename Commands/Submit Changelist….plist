@@ -25,13 +25,23 @@ p4_response = run_p4_command('submit')
 print(stdout_to_html(p4_response))</string>
 	<key>input</key>
 	<string>none</string>
-	<key>keyEquivalent</key>
-	<string>@4</string>
+	<key>inputFormat</key>
+	<string>text</string>
 	<key>name</key>
 	<string>Submit Changelist…</string>
-	<key>output</key>
-	<string>showAsHTML</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>html</string>
+	<key>outputLocation</key>
+	<string>newWindow</string>
+	<key>scope</key>
+	<string>attr.scm.p4</string>
+	<key>semanticClass</key>
+	<string>action.scm.misc</string>
 	<key>uuid</key>
 	<string>BE2B6161-2E23-4C08-B438-409BB1E82DA8</string>
+	<key>version</key>
+	<integer>2</integer>
 </dict>
 </plist>

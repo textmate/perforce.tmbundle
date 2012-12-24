@@ -23,13 +23,23 @@ rescan_project()
 </string>
 	<key>input</key>
 	<string>none</string>
-	<key>keyEquivalent</key>
-	<string>@4</string>
+	<key>inputFormat</key>
+	<string>text</string>
 	<key>name</key>
 	<string>Delete from Depot</string>
-	<key>output</key>
-	<string>showAsTooltip</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>text</string>
+	<key>outputLocation</key>
+	<string>toolTip</string>
+	<key>scope</key>
+	<string>attr.scm.p4</string>
+	<key>semanticClass</key>
+	<string>action.scm.misc</string>
 	<key>uuid</key>
 	<string>5D487D57-14F6-4E77-BFAE-769CA3DA40EA</string>
+	<key>version</key>
+	<integer>2</integer>
 </dict>
 </plist>
