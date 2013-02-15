@@ -4,34 +4,18 @@ from P4 import P4, P4Exception
 p4 = None
 
 def connect_to_p4():
-	required_environ_keys = ['P4PORT', 'P4USER', 'P4PASSWD', 'P4CLIENT']
+	global p4
 	
-	missing_environ_keys = filter(
-		lambda key: not os.environ.has_key(key),
-		required_environ_keys 
-	)
-	
-	if missing_environ_keys:
-		print("Please make sure that the following environment variables have been set:")
+	if p4 is None:
+		p4 = P4()
 		
-		for key in missing_environ_keys:
-			print(" - " + key)
-		
-		print('')
-		assert False
-	else:
-		global p4
-		
-		if p4 is None:
-			p4 = P4()
+	if not p4.connected():
+		try:
+			p4.connect()
+		except P4Exception as p4_error:
+			print(p4_error)
 			
-		if not p4.connected():
-			try:
-				p4.connect()
-			except P4Exception as p4_error:
-				print(p4_error)
-				
-		return p4
+	return p4
 
 
 def get_textmate_file_list():
